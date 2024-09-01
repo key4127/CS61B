@@ -6,9 +6,9 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     private int size;
 
     private class Node<T> {
-        public T item;
-        public Node<T> next;
-        public Node<T> last;
+        private T item;
+        private Node<T> next;
+        private Node<T> last;
 
         public Node(T val, Node<T> nextR, Node<T> lastR) {
             item = val;
@@ -108,7 +108,8 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         return getRecursive(sentinel, index);
     }
 
-    public T getRecursive(Node<T> p, int index) {
+    // the helper is private
+    private T getRecursive(Node<T> p, int index) {
         if (index == 0) {
             return p.item;
         }
