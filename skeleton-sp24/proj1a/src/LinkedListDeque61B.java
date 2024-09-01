@@ -88,13 +88,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
-    // I suppose the first index (besides the sentinel) is 1
+    // I suppose the first index (besides the sentinel) is 0
     public T get(int index) {
         if (index < 0 || index > size) {
             return null;
         }
         Node<T> target = sentinel;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i <= index; i++) {
             target = target.next;
         }
         return target.item;
@@ -102,7 +102,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T getRecursive(int index) {
-        if (index <= 0 || index > size) {
+        if (index < 0 || index > size) {
             return null;
         }
         return getRecursive(sentinel, index);
@@ -111,7 +111,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     // the helper is private
     private T getRecursive(Node<T> p, int index) {
         if (index == 0) {
-            return p.item;
+            return p.next.item;
         }
         return getRecursive(p.next, index - 1);
     }
