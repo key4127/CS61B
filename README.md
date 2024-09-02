@@ -16,4 +16,20 @@ CS61B的很多lab/project没有提供所有测试样例，需要自己编写。�
 
 我的代码没有去掉 ``To do`` 或 ``fix it`` 注释。其余部分均符合格式要求。  
 
-从proj1b开始，将变量命名由驼峰变为下划线。  
+从proj1b开始，将变量命名由驼峰变为下划线。 
+
+### 具体测试说明
+
+**proj1a**
+
+包含了要求的所有测试函数。许多测试函数不独立，与其它函数结合来尽量测试所有边界情况。  
+
+**proj1b**
+
+包含了要求的所有测试函数，每个测试函数独立，只测试对应的情况。增加了一些其它函数来检查特殊情况。  
+
+``add_first_and_last`` ：测试 ``addFirst`` 和 ``addLast`` 函数结合使用的情况。  
+
+``is_empty_after_remove_to_empty`` ：添加后清空AList，检查 ``is_empty`` 情况。  
+
+``get_and_size_and_is_empty_after_resizing`` ：resize up和resize down后，分别检查 ``get`` 、 ``size`` 和 ``is_empty`` 函数（未完成）。
