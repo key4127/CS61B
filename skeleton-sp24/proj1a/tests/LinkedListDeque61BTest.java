@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List; // I wonder if this were permitted
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
@@ -65,9 +64,7 @@ public class LinkedListDeque61BTest {
     @Test
     public void add_first_from_empty() {
         Deque61B<String> lld1 = new LinkedListDeque61B<>();
-        List<String> emptyList = new ArrayList<>();
-
-        assertThat(lld1.toList()).isEqualTo(emptyList);
+        assertThat(lld1.toList()).containsExactly();
 
         lld1.addFirst("add_first_from_empty");
         assertThat(lld1.toList()).containsExactly("add_first_from_empty").inOrder();
@@ -88,9 +85,7 @@ public class LinkedListDeque61BTest {
     @Test
     public void add_last_from_empty() {
         Deque61B<String> lld1 = new LinkedListDeque61B<>();
-        List<String> emptyList = new ArrayList<>();
-
-        assertThat(lld1.toList()).isEqualTo(emptyList);
+        assertThat(lld1.toList()).containsExactly();
 
         lld1.addLast("add_first_from_empty");
         assertThat(lld1.toList()).containsExactly("add_first_from_empty").inOrder();
@@ -355,14 +350,13 @@ public class LinkedListDeque61BTest {
     @Test
     public void to_list_empty() {
          Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
-         List<Integer> emptyList = new ArrayList<>();
-         assertThat(lld1.toList()).isEqualTo(emptyList);
+         assertThat(lld1.toList()).containsExactly();
 
          lld1.addFirst(1);
          lld1.addLast(2);
          lld1.removeFirst();
          lld1.removeLast();
-         assertThat(lld1.toList()).isEqualTo(emptyList);
+         assertThat(lld1.toList()).containsExactly();
     }
 
     @Test

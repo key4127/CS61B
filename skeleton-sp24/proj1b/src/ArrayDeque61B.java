@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Math;
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
     private T[] items;
@@ -8,10 +7,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     private int next_last;
     private int size;
 
+    // Next_first equals next_last will cause errors.
     public ArrayDeque61B() {
         items = (T[]) new Object[8];
         next_first = 0;
-        next_last = 0;
+        next_last = 1;
         size = 0;
     }
 
@@ -90,7 +90,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return  getRecursive(next_first + 1, index);
     }
 
-    // if the AList is real big, these may cause an overflow.
+    // If the AList is real big, these may cause an overflow.
     private T getRecursive(int start, int index) {
         if (index == 0) {
             return items[Math.floorMod(start, items.length)];
