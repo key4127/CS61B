@@ -83,6 +83,251 @@ public class ArrayDeque61BPreconditionTest {
     }
 
     @Test
+    public void add_first_after_remove_to_empty() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.toList()).containsExactly(3, 2, 1).inOrder();
+
+        AList.removeFirst();
+        AList.removeFirst();
+        AList.removeFirst();
+        assertThat(AList.toList()).containsExactly();
+
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.toList()).containsExactly(3, 2, 1).inOrder();
+    }
+
+    @Test
+    public void add_last_after_remove_to_empty() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.toList()).containsExactly(1, 2, 3).inOrder();
+
+        AList.removeLast();
+        AList.removeLast();
+        AList.removeLast();
+        assertThat(AList.toList()).containsExactly();
+
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.toList()).containsExactly(1, 2, 3).inOrder();
+    }
+
+    @Test
+    public void remove_first() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.toList()).containsExactly(3, 2, 1).inOrder();
+
+        AList.removeFirst();
+        AList.removeFirst();
+        AList.removeFirst();
+        assertThat(AList.toList()).containsExactly();
+
+        AList.removeFirst();
+        assertThat(AList.toList()).containsExactly();
+    }
+
+    @Test
+    public void remove_last() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.toList()).containsExactly(1, 2, 3).inOrder();
+
+        AList.removeLast();
+        AList.removeLast();
+        AList.removeLast();
+        assertThat(AList.toList()).containsExactly();
+
+        AList.removeLast();
+        assertThat(AList.toList()).containsExactly();
+    }
+
+    @Test
+    public void remove_first_to_empty() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.toList()).containsExactly(3, 2, 1).inOrder();
+
+        AList.removeFirst();
+        AList.removeFirst();
+        assertThat(AList.toList()).containsExactly(1);
+        assertThat(AList.removeFirst()).isEqualTo(1);
+    }
+
+    @Test
+    public void remove_last_to_empty() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.toList()).containsExactly(1, 2, 3).inOrder();
+
+        AList.removeLast();
+        AList.removeLast();
+        assertThat(AList.toList()).containsExactly(1);
+        assertThat(AList.removeLast()).isEqualTo(1);
+    }
+
+    @Test
+    public void remove_first_to_one() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.toList()).containsExactly(3, 2, 1).inOrder();
+
+        AList.removeFirst();
+        assertThat(AList.toList()).containsExactly(2, 1);
+        assertThat(AList.removeFirst()).isEqualTo(2);
+    }
+
+    @Test
+    public void remove_last_to_one() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.toList()).containsExactly(1, 2, 3).inOrder();
+
+        AList.removeLast();
+        assertThat(AList.toList()).containsExactly(1, 2);
+        assertThat(AList.removeLast()).isEqualTo(2);
+    }
+
+    @Test
+    public void size() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        assertThat(AList.size()).isEqualTo(0);
+
+        AList.addLast(1);
+        assertThat(AList.size()).isEqualTo(1);
+
+        AList.addFirst(2);
+        AList.addFirst(3);
+        assertThat(AList.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void size_after_remove_to_empty() {
+        Deque61B<String> AList = new ArrayDeque61B<>();
+        AList.addFirst("a");
+        AList.addLast("b");
+        AList.addFirst("c");
+        assertThat(AList.size()).isEqualTo(3);
+
+        AList.removeFirst();
+        AList.removeLast();
+        assertThat(AList.size()).isEqualTo(1);
+
+        AList.removeFirst();
+        assertThat(AList.size()).isEqualTo(0);
+
+        AList.addLast("a");
+        AList.addFirst("b");
+        AList.addLast("c");
+        assertThat(AList.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void get_valid() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.get(0)).isEqualTo(1);
+        assertThat(AList.get(1)).isEqualTo(2);
+        assertThat(AList.get(2)).isEqualTo(3);
+
+        AList.addFirst(0);
+        assertThat(AList.get(0)).isEqualTo(0);
+        assertThat(AList.get(1)).isEqualTo(1);
+    }
+
+    @Test
+    public void get_oob_large() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        assertThat(AList.get(0)).isEqualTo(null);
+
+        AList.addFirst(1);
+        assertThat(AList.get(1)).isEqualTo(null);
+        assertThat(AList.get(100)).isEqualTo(null);
+    }
+
+    @Test
+    public void get_oob_neg() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        assertThat(AList.get(-1)).isEqualTo(null);
+
+        AList.addFirst(1);
+        assertThat(AList.get(-1)).isEqualTo(null);
+        assertThat(AList.get(-100)).isEqualTo(null);
+    }
+
+    @Test
+    public void get_recursive_valid() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        assertThat(AList.getRecursive(0)).isEqualTo(1);
+        assertThat(AList.getRecursive(1)).isEqualTo(2);
+        assertThat(AList.getRecursive(2)).isEqualTo(3);
+
+        AList.addFirst(0);
+        assertThat(AList.getRecursive(0)).isEqualTo(0);
+        assertThat(AList.getRecursive(1)).isEqualTo(1);
+    }
+
+    @Test
+    public void get_recursive_oob_large() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        assertThat(AList.getRecursive(0)).isEqualTo(null);
+
+        AList.addFirst(1);
+        assertThat(AList.getRecursive(1)).isEqualTo(null);
+        assertThat(AList.getRecursive(100)).isEqualTo(null);
+    }
+
+    @Test
+    public void get_recursive_oob_neg() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        assertThat(AList.getRecursive(-1)).isEqualTo(null);
+
+        AList.addFirst(1);
+        assertThat(AList.getRecursive(-1)).isEqualTo(null);
+        assertThat(AList.getRecursive(-100)).isEqualTo(null);
+    }
+
+    @Test
+    public void size_after_remove_from_empty() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.removeFirst();
+        AList.removeLast();
+        assertThat(AList.size()).isEqualTo(0);
+
+        AList.addLast(1);
+        assertThat(AList.size()).isEqualTo(1);
+
+        AList.removeFirst();
+        AList.removeLast();
+        assertThat(AList.size()).isEqualTo(0);
+    }
+
+    @Test
     public void is_empty_true() {
         Deque61B<Integer> AList = new ArrayDeque61B<>();
         assertThat(AList.isEmpty()).isEqualTo(true);

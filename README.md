@@ -26,10 +26,14 @@ CS61B的很多lab/project没有提供所有测试样例，需要自己编写。�
 
 **proj1b**
 
-包含了要求的所有测试函数，每个测试函数独立，只测试对应的情况。增加了一些其它函数来检查特殊情况。  
+包含了要求的所有测试函数，每个测试函数独立（除了包含 ``toList`` 用于测试），只测试对应的情况。增加了一些其它函数来检查特殊情况。  
 
 ``add_first_and_last`` ：测试 ``addFirst`` 和 ``addLast`` 函数结合使用的情况。  
 
+``remove_first_and_last`` ：同上，测试 ``removeFirst`` 和 ``removeLast`` 结合的情况。  
+
+``get_recursive`` 等三个函数：这一部分没有要求 ``get_recursive`` 函数，我将测试 ``get`` 的部分复制测试 ``get_recursive`` 。另外，在我的代码中，如果数组大小非常大并且 ``next_first`` 的值也很大，可能会因为溢出导致错误。如果每次递归时都取模处理一下可以解决这个问题。  
+
 ``is_empty_after_remove_to_empty`` ：添加后清空AList，检查 ``is_empty`` 情况。  
 
-``get_and_size_and_is_empty_after_resizing`` ：resize up和resize down后，分别检查 ``get`` 、 ``size`` 和 ``is_empty`` 函数（未完成）。
+``get_and_size_and_is_empty_after_resizing`` ：resize up和resize down后，分别检查 ``get`` 、 ``size`` 和 ``is_empty`` 函数，可以看作是 ``resize_up_and_resize_down`` 的继续。*此外这里还包含了测试* ``get_recursive`` *的部分（除去三个单独测试之外的唯一一个），已经注释掉了。*

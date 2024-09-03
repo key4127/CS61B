@@ -54,7 +54,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             return null;
         }
         int remove_index = Math.floorMod(next_first + 1, items.length);
-        T x = get(remove_index);
+        T x = items[remove_index];
         items[remove_index] = null;
         next_first = remove_index;
         size -= 1;
@@ -67,7 +67,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
             return null;
         }
         int remove_index = Math.floorMod(next_last - 1, items.length);
-        T x = get(remove_index);
+        T x = items[remove_index];
         items[remove_index] = null;
         next_last = remove_index;
         size -= 1;
@@ -82,6 +82,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return items[Math.floorMod(next_first + index + 1, items.length)];
     }
 
+    /* This function is not acquired. */
     @Override
     public T getRecursive(int index) {
         if (index < 0 || index >= size) {
