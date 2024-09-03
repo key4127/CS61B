@@ -77,7 +77,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         next_first = remove_index;
         size -= 1;
 
-        if (items.length > 15 && size <= 0.25 * items.length) {
+        if (items.length >= 8 && size <= 0.25 * items.length) {
             resize(items.length / 2);
         }
 
@@ -95,7 +95,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         next_last = remove_index;
         size -= 1;
 
-        if (items.length > 15 && size <= 0.25 * items.length) {
+        if (items.length >= 8 && size <= 0.25 * items.length) {
             resize(items.length / 2);
         }
 
