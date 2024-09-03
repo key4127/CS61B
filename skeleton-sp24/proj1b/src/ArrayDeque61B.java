@@ -15,8 +15,22 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         size = 0;
     }
 
+    private void resize(int capacity) {
+        T[] a = (T[]) new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            a[i] = get(i);
+        }
+        next_first = a.length - 1;
+        next_last = size;
+        items = a;
+    }
+
     @Override
     public void addFirst(T x) {
+        if (size == items.length) {
+            resize(size * 2);
+        }
+
         items[next_first] = x;
         next_first = Math.floorMod(next_first - 1, items.length);
         size += 1;
@@ -24,6 +38,10 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public void addLast(T x) {
+        if (size == items.length) {
+            resize(size * 2);
+        }
+
         items[next_last] = x;
         next_last = Math.floorMod(next_last + 1, items.length);
         size += 1;
@@ -58,6 +76,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items[remove_index] = null;
         next_first = remove_index;
         size -= 1;
+
+        if (items.length > 15 && size <= 0.25 * items.length) {
+            resize(items.length / 2);
+        }
+
         return x;
     }
 
@@ -71,6 +94,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         items[remove_index] = null;
         next_last = remove_index;
         size -= 1;
+
+        if (items.length > 15 && size <= 0.25 * items.length) {
+            resize(items.length / 2);
+        }
+
         return x;
     }
 

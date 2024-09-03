@@ -68,6 +68,36 @@ public class ArrayDeque61BPreconditionTest {
     }
 
     @Test
+    public void add_first_trigger_resize() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addFirst(1);
+        AList.addFirst(2);
+        AList.addFirst(3);
+        AList.addFirst(4);
+        AList.addFirst(5);
+        AList.addFirst(6);
+        AList.addFirst(7);
+        AList.addFirst(8);
+        AList.addFirst(9);
+        assertThat(AList.toList()).containsExactly(9, 8, 7, 6, 5, 4, 3, 2, 1).inOrder();
+    }
+
+    @Test
+    public void add_last_trigger_resize() {
+        Deque61B<Integer> AList = new ArrayDeque61B<>();
+        AList.addLast(1);
+        AList.addLast(2);
+        AList.addLast(3);
+        AList.addLast(4);
+        AList.addLast(5);
+        AList.addLast(6);
+        AList.addLast(7);
+        AList.addLast(8);
+        AList.addLast(9);
+        assertThat(AList.toList()).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9).inOrder();
+    }
+
+    @Test
     public void add_first_and_last() {
         Deque61B<Integer> AList_a = new ArrayDeque61B<>();
         AList_a.addFirst(1);
