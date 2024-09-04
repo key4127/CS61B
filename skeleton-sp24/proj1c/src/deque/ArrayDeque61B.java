@@ -11,19 +11,22 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     private int size;
 
     private class ArrayIterator implements Iterator<T> {
-        public int seer;
+        private int num;
+        private int index;
 
         public ArrayIterator() {
-            seer = 0;
+            num = 0;
+            index = Math.floorMod(next_first + 1, items.length);
         }
 
         public boolean hasNext() {
-            return seer < size;
+            return num < size;
         }
 
         public T next() {
-            T x = items[seer];
-            seer += 1;
+            T x = items[index];
+            index = Math.floorMod(index + 1, items.length);
+            num += 1;
             return x;
         }
     }
@@ -51,7 +54,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
                 return false;
             }
             for (int i = 0; i < size; i++) {
-                if (array.items[i] != items[i]) {
+                if (array.get(i) != get(i)) {
                     return false;
                 }
             }
@@ -60,14 +63,17 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return false;
     }
 
+    // Is there a better solution?
     @Override
     public String toString() {
         StringBuilder return_string = new StringBuilder("[");
-        for (T i : this) {
-            return_string.append(i);
-            return_string.append(", ");
+        Iterator<T> it = iterator();
+        while (it.hasNext()) {
+            return_string.append(it.next());
+            if (it.hasNext()) {
+                return_string.append(", ");
+            }
         }
-        return_string.delete(return_string.length() - 1, return_string.length() - 1);
         return_string.append("]");
         return return_string.toString();
     }
