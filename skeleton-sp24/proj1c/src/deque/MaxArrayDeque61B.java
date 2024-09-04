@@ -1,20 +1,22 @@
 package deque;
 
+import net.sf.saxon.expr.Component;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayDeque61B<T> implements Deque61B<T> {
+public class MaxArrayDeque61B<T> implements Deque61B<T>{
     private T[] items;
     private int next_first;
     private int next_last;
     private int size;
 
-    private class ArrayIterator implements Iterator<T> {
-        private int num;
-        private int index;
+    private class MaxArrayIterator implements Iterator<T>{
+        int num;
+        int index;
 
-        public ArrayIterator() {
+        public MaxArrayIterator() {
             num = 0;
             index = Math.floorMod(next_first + 1, items.length);
         }
@@ -31,8 +33,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         }
     }
 
-    // Next_first equals next_last will cause errors.
-    public ArrayDeque61B() {
+    public MaxArrayDeque61B() {
         items = (T[]) new Object[8];
         next_first = 0;
         next_last = 1;
@@ -41,41 +42,7 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new ArrayIterator();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o instanceof ArrayDeque61B<?> array) {
-            if (array.size != size) {
-                return false;
-            }
-            for (int i = 0; i < size; i++) {
-                if (array.get(i) != get(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    // Is there a better solution?
-    @Override
-    public String toString() {
-        StringBuilder return_string = new StringBuilder("[");
-        Iterator<T> it = iterator();
-        while (it.hasNext()) {
-            return_string.append(it.next());
-            if (it.hasNext()) {
-                return_string.append(", ");
-            }
-        }
-        return_string.append("]");
-        return return_string.toString();
+        return new MaxArrayIterator();
     }
 
     private void resize(int capacity) {
@@ -83,17 +50,16 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         for (int i = 0; i < size; i++) {
             a[i] = get(i);
         }
-        next_first = a.length - 1;
-        next_last = size;
         items = a;
+        next_first = items.length - 1;
+        next_last = size;
     }
 
     @Override
     public void addFirst(T x) {
         if (size == items.length) {
-            resize(size * 2);
+            resize(items.length * 2);
         }
-
         items[next_first] = x;
         next_first = Math.floorMod(next_first - 1, items.length);
         size += 1;
@@ -102,9 +68,8 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public void addLast(T x) {
         if (size == items.length) {
-            resize(size * 2);
+            resize(items.length * 2);
         }
-
         items[next_last] = x;
         next_last = Math.floorMod(next_last + 1, items.length);
         size += 1;
@@ -113,8 +78,12 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     @Override
     public List<T> toList() {
         List<T> return_list = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
-            return_list.add(items[Math.floorMod(next_first + i, items.length)]);
+        /*for (T elem : this) {
+            return_list.add(elem);
+        }*/
+        Iterator<T> it = new MaxArrayIterator();
+        while (it.hasNext()) {
+            return_list.add(it.next());
         }
         return return_list;
     }
@@ -134,16 +103,16 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (isEmpty()) {
             return null;
         }
+
         int remove_index = Math.floorMod(next_first + 1, items.length);
         T x = items[remove_index];
         items[remove_index] = null;
         next_first = remove_index;
         size -= 1;
 
-        if (items.length >= 8 && size <= 0.25 * items.length) {
+        if (items.length >= 8 && size <= items.length * 0.25) {
             resize(items.length / 2);
         }
-
         return x;
     }
 
@@ -152,16 +121,16 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         if (isEmpty()) {
             return null;
         }
+
         int remove_index = Math.floorMod(next_last - 1, items.length);
         T x = items[remove_index];
         items[remove_index] = null;
         next_last = remove_index;
         size -= 1;
 
-        if (items.length >= 8 && size <= 0.25 * items.length) {
+        if (items.length >= 8 && size <= items.length * 0.25) {
             resize(items.length / 2);
         }
-
         return x;
     }
 
@@ -173,16 +142,14 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return items[Math.floorMod(next_first + index + 1, items.length)];
     }
 
-    /* This function is not acquired. */
     @Override
     public T getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
-        return  getRecursive(next_first + 1, index);
+        return getRecursive(next_first + 1, index);
     }
 
-    // If the AList is real big, these may cause an overflow.
     private T getRecursive(int start, int index) {
         if (index == 0) {
             return items[Math.floorMod(start, items.length)];
@@ -190,4 +157,3 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
         return getRecursive(start + 1, index - 1);
     }
 }
-
