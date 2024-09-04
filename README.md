@@ -37,3 +37,7 @@ CS61B的很多lab/project没有提供所有测试样例，需要自己编写。�
 ``is_empty_after_remove_to_empty`` ：添加后清空AList，检查 ``is_empty`` 情况。  
 
 ``get_and_size_and_is_empty_after_resizing`` ：resize up和resize down后，分别检查 ``get`` 、 ``size`` 和 ``is_empty`` 函数，可以看作是 ``resize_up_and_resize_down`` 的继续。*此外这里还包含了测试* ``get_recursive`` *的部分（除去三个单独测试之外的唯一一个），已经注释掉了。*
+
+**proj1c**
+
+在 ``MaxArrayDeque61B`` 部分，我移植了proj1b中所有自己写的测试函数来测试基本功能。此外，我实现了一个默认比较器（似乎并不需要）。  
