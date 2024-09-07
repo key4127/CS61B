@@ -22,7 +22,14 @@ public class UnionFind {
        negative size of the tree for which V is the root. */
     public int parent(int v) {
         // TODO: YOUR CODE HERE
-        return parent[v];
+        if (v < 0 || v >= parent.length) {
+            throw new IllegalArgumentException("invalid item");
+        }
+        if (parent[v] >= 0) {
+            return parent[v];
+        } else {
+            return v;
+        }
     }
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
@@ -37,7 +44,7 @@ public class UnionFind {
     public int find(int v) {
         // TODO: YOUR CODE HERE
         if (v < 0 ||  v >= parent.length) {
-            throw new IllegalArgumentException("invalid items");
+            throw new IllegalArgumentException("invalid item");
         }
         if (parent[v] < 0) {
             return v;
@@ -53,11 +60,11 @@ public class UnionFind {
        already connected should not change the structure. */
     public void union(int v1, int v2) {
         // TODO: YOUR CODE HERE
-        if (v1 == v2) {
-            return;
-        }
         int r1 = find(v1);
         int r2 = find(v2);
+        if (r1 == r2) {
+            return;
+        }
         if (parent[r1] < parent[r2]) {
             parent[r1] += parent[r2];
             parent[r2] = r1;
